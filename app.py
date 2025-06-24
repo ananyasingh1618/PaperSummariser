@@ -1,4 +1,3 @@
-
 import streamlit as st
 from pypdf import PdfReader
 from fpdf import FPDF
@@ -18,7 +17,6 @@ if uploaded_file:
         if text:
             full_text += text + "\n"
 
-    # Extractive summary: pick top 5 longest meaningful sentences
     sentences = re.split(r'(?<=[.!?])\s+', full_text)
     summary_sentences = [s.strip() for s in sentences if len(s.split()) > 8]
     summary = "\n\n".join(sorted(summary_sentences, key=len, reverse=True)[:5])
@@ -26,7 +24,6 @@ if uploaded_file:
     st.subheader("Summary")
     st.write(summary)
 
-    # Prepare downloadable PDF safely (handle Unicode)
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("Arial", size=12)
