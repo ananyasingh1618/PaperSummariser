@@ -30,8 +30,10 @@ if uploaded_file:
     for line in summary.split("\n\n"):
         safe_line = line.encode("latin-1", "replace").decode("latin-1")
         pdf.multi_cell(0, 10, safe_line)
+
     buffer = io.BytesIO()
-    pdf.output(buffer)
+    pdf_data = pdf.output(dest='S').encode('latin-1')
+    buffer.write(pdf_data)
     buffer.seek(0)
 
     st.download_button(
